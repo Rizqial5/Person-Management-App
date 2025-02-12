@@ -34,13 +34,16 @@
 
 <h2>State Province</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<div style="display:block">
 
-<p>
-    @Html.ActionLink("Export excel", "StateProvinceExportToExcel")
-</p>
+    <a href="@Url.Action("Create", "StateProvince")" class="btn btn-primary">
+        + Add State Province
+    </a>
+
+
+
+</div>
+
 <table class="table" id="stateProvinceData" style="width:100%">
     <thead>
         <tr>
@@ -68,6 +71,10 @@
     <thead>
 
 </table>
+
+<a href="@Url.Action("StateProvinceExportToExcel","StateProvince" )" class="btn btn-primary">
+    Export to Excel
+</a>
 
 @section scripts {
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
