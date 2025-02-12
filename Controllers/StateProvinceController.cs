@@ -224,22 +224,34 @@ namespace PersoneManagement.Web.Controllers
 
             Workbook workBook = new Workbook();
             Worksheet workSheet = workBook.Worksheets[0];
+            Style style = workSheet.Workbook.CreateStyle();
             workSheet.Name = "State Provinces";
+
+            //style settings
+            style.HorizontalAlignment = TextAlignmentType.Center;
+            style.IsLocked = true;
 
             //Add Header
 
             workSheet.Cells[0, 0].PutValue("StateProvinceId");
+            workSheet.Cells.HideColumn(0);
+            //workSheet.Cells[0, 0].;
             workSheet.Cells[0, 1].PutValue("Name");
             workSheet.Cells[0, 2].PutValue("State Province Code");
             workSheet.Cells[0, 3].PutValue("Territorry - Region");
 
+            // add lock style
+            StyleFlag styleFlag = new StyleFlag();
+            styleFlag.Locked = true;
+            workSheet.Cells.Columns[0].ApplyStyle(style, styleFlag);
+
 
             for (int i = 0; i < data.Count(); i++)
             {
-                workSheet.Cells[i + 1, 1].PutValue(data.ToList()[i].StateProvinceID);
-                workSheet.Cells[i + 1, 2].PutValue(data.ToList()[i].Name);
-                workSheet.Cells[i + 1, 3].PutValue(data.ToList()[i].Code);
-                workSheet.Cells[i + 1, 4].PutValue(data.ToList()[i].TerritoryRegion);
+                workSheet.Cells[i + 1, 0].PutValue(data.ToList()[i].StateProvinceID);
+                workSheet.Cells[i + 1, 1].PutValue(data.ToList()[i].Name);
+                workSheet.Cells[i + 1, 2].PutValue(data.ToList()[i].Code);
+                workSheet.Cells[i + 1, 3].PutValue(data.ToList()[i].TerritoryRegion);
             }
 
             // Master Sheet
@@ -260,6 +272,7 @@ namespace PersoneManagement.Web.Controllers
             territoryValidation.Type = ValidationType.List;
             territoryValidation.Formula1 = "=Master!$A$1:$A$" + territoryRegion.Count;
 
+            
 
             //Save Workbook
             var stream = new System.IO.MemoryStream();
