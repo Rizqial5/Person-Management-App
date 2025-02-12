@@ -22,7 +22,7 @@ namespace PersoneManagement.Web.Models.DTO
 
         [DisplayName("Country/Region")]
         [Required(ErrorMessage = "Country Region is Required")]
-        public string CountryRegionCode { get; set; }
+        public string CountryRegionCode { get; set; } //get id by name
 
         [DisplayName("Flag")]
         public bool IsOnlyStateProvinceFlag { get; set; }
@@ -32,7 +32,7 @@ namespace PersoneManagement.Web.Models.DTO
 
         [DisplayName("Territory")]
         [Required(ErrorMessage = "Territorry is Required")]
-        public int TerritoryID { get; set; }
+        public int TerritoryID { get; set; } //get id by name
 
         //perlu diperhatikan
         public System.Guid rowguid { get; set; }

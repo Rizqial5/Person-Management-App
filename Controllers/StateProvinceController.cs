@@ -9,6 +9,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Aspose.Cells;
+using Aspose.Cells.Drawing;
 
 
 namespace PersoneManagement.Web.Controllers
@@ -206,14 +207,15 @@ namespace PersoneManagement.Web.Controllers
             }
         }
 
-        public ActionResult ExportToExcel()
+        public ActionResult StateProvinceExportToExcel()
         {
             var data = _stateProvinceRepository.GetAll().Select(sp => new
             {
-                StateProvinceID = sp.StateProvinceCode,
+                StateProvinceID = sp.StateProvinceID,
                 Name = sp.Name,
                 Code = sp.StateProvinceCode,
-                TerritoryRegion = sp.TerritorryNames + " - "+ sp.CountryRegionNames
+                TerritoryRegion = sp.TerritorryNames + " - "+ sp.CountryRegionNames,
+                Flag = sp.IsOnlyStateProvinceFlag
             });
 
             //var countryRegion = data.Select(d => d.CountryName).ToList();
@@ -224,12 +226,17 @@ namespace PersoneManagement.Web.Controllers
 
             Workbook workBook = new Workbook();
             Worksheet workSheet = workBook.Worksheets[0];
-            Style style = workSheet.Workbook.CreateStyle();
+
+            int[] maxColumnWidths = new int[5];
+
+
+
             workSheet.Name = "State Provinces";
 
+
             //style settings
-            style.HorizontalAlignment = TextAlignmentType.Center;
-            style.IsLocked = true;
+
+
 
             //Add Header
 
@@ -239,11 +246,31 @@ namespace PersoneManagement.Web.Controllers
             workSheet.Cells[0, 1].PutValue("Name");
             workSheet.Cells[0, 2].PutValue("State Province Code");
             workSheet.Cells[0, 3].PutValue("Territorry - Region");
+            workSheet.Cells[0, 4].PutValue("Flag");
+
+            maxColumnWidths[1] = "Name".Length;
+            maxColumnWidths[2] = "State Province Code".Length;
+            maxColumnWidths[3] = "Territorry - Region".Length;
+            maxColumnWidths[4] = "Flag".Length;
+
+
 
             // add lock style
+
+            Style unlockedStyle = workSheet.Workbook.CreateStyle();
+            unlockedStyle.HorizontalAlignment = TextAlignmentType.Center;
+            unlockedStyle.IsLocked = false;
+            workSheet.Cells.ApplyStyle(unlockedStyle, new StyleFlag() { Locked = true });
+
+
+            Style style = workSheet.Workbook.CreateStyle();
             StyleFlag styleFlag = new StyleFlag();
+            style.IsLocked = true;
             styleFlag.Locked = true;
             workSheet.Cells.Columns[0].ApplyStyle(style, styleFlag);
+
+            workSheet.Protect(ProtectionType.All);
+            
 
 
             for (int i = 0; i < data.Count(); i++)
@@ -252,6 +279,21 @@ namespace PersoneManagement.Web.Controllers
                 workSheet.Cells[i + 1, 1].PutValue(data.ToList()[i].Name);
                 workSheet.Cells[i + 1, 2].PutValue(data.ToList()[i].Code);
                 workSheet.Cells[i + 1, 3].PutValue(data.ToList()[i].TerritoryRegion);
+                workSheet.Cells[i + 1, 4].PutValue(SetBoolFlag(data.ToList()[i].Flag));
+
+                
+                maxColumnWidths[1] = Math.Max(maxColumnWidths[1], data.ToList()[i].Name.Length);
+                maxColumnWidths[2] = Math.Max(maxColumnWidths[2], data.ToList()[i].Code.Length);
+                maxColumnWidths[3] = Math.Max(maxColumnWidths[3], data.ToList()[i].TerritoryRegion.Length);
+                maxColumnWidths[4] = Math.Max(maxColumnWidths[4], data.ToList()[i].Flag.ToString().Length);
+
+
+            }
+
+            for (int col = 1; col < maxColumnWidths.Length; col++)
+            {
+                // Tambahkan padding agar ada ruang di sekitar teks
+                workSheet.Cells.SetColumnWidth(col, maxColumnWidths[col] + 5);
             }
 
             // Master Sheet
@@ -262,15 +304,27 @@ namespace PersoneManagement.Web.Controllers
                 masterSheet.Cells[i, 0].PutValue(territoryRegion[i]);
             }
 
+            masterSheet.VisibilityType = VisibilityType.VeryHidden;
+
+
+
 
             //data validation untuk tipe integer /number
 
-            //Data validation
-            int territoryRegionColumnIndex = 2;
-            CellArea territoryRegionArea = CellArea.CreateCellArea(1, territoryRegionColumnIndex, data.Count(), territoryRegionColumnIndex);
+            //Data validation territoryRegion
+            int territoryRegionColumnIndex = 3;
+            CellArea territoryRegionArea = CellArea.CreateCellArea(1, territoryRegionColumnIndex, 1000, territoryRegionColumnIndex);
             Validation territoryValidation = workSheet.Validations[workSheet.Validations.Add(territoryRegionArea)];
             territoryValidation.Type = ValidationType.List;
             territoryValidation.Formula1 = "=Master!$A$1:$A$" + territoryRegion.Count;
+
+            //Data Validation flag boolean
+            int flagColumnIndex = 4;
+            CellArea flagArea = CellArea.CreateCellArea(1, flagColumnIndex, 1000, flagColumnIndex);
+            Validation flagValidation = workSheet.Validations[workSheet.Validations.Add(flagArea)];
+            flagValidation.Type = ValidationType.List;
+            flagValidation.Formula1 = "Yes, No";
+
 
             
 
@@ -283,6 +337,13 @@ namespace PersoneManagement.Web.Controllers
             return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "StateProvince.xlsx");
 
         }
+
+        //public ActionResult StateProvinceImportToExcel()
+        //{
+            
+        //}
+
+
 
         public JsonResult ShowTerritorryList(string regionCode)
         {
@@ -317,6 +378,19 @@ namespace PersoneManagement.Web.Controllers
 
 
             ViewBag.RegionList = new SelectList(dropDownRegions, "CountryRegionCode", "Name");
+        }
+
+        private string SetBoolFlag(bool flag)
+        {
+            if (flag)
+            {
+                return "Yes";
+            } 
+            else
+            {
+                return "No";
+            }
+                
         }
     }
 }
