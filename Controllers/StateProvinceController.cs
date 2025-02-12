@@ -233,11 +233,13 @@ namespace PersoneManagement.Web.Controllers
             workSheet.Cells[0, 2].PutValue("State Province Code");
             workSheet.Cells[0, 3].PutValue("Territorry - Region");
 
+
             for (int i = 0; i < data.Count(); i++)
             {
-                workSheet.Cells[i + 1, 0].PutValue(data.ToList()[i].Name);
-                workSheet.Cells[i + 1, 1].PutValue(data.ToList()[i].Code);
-                workSheet.Cells[i + 1, 2].PutValue(data.ToList()[i].TerritoryRegion);
+                workSheet.Cells[i + 1, 1].PutValue(data.ToList()[i].StateProvinceID);
+                workSheet.Cells[i + 1, 2].PutValue(data.ToList()[i].Name);
+                workSheet.Cells[i + 1, 3].PutValue(data.ToList()[i].Code);
+                workSheet.Cells[i + 1, 4].PutValue(data.ToList()[i].TerritoryRegion);
             }
 
             // Master Sheet
@@ -248,10 +250,6 @@ namespace PersoneManagement.Web.Controllers
                 masterSheet.Cells[i, 0].PutValue(territoryRegion[i]);
             }
 
-            //for (int i = 0; i < territorryName.Count; i++)
-            //{
-            //    masterSheet.Cells[i, 1].PutValue(territorryName[i]);
-            //}
 
             //data validation untuk tipe integer /number
 
@@ -262,12 +260,6 @@ namespace PersoneManagement.Web.Controllers
             territoryValidation.Type = ValidationType.List;
             territoryValidation.Formula1 = "=Master!$A$1:$A$" + territoryRegion.Count;
 
-            ////Data validation
-            //int territoryColumnIndex = 3;
-            //CellArea territoryArea = CellArea.CreateCellArea(1, territoryColumnIndex, data.Count(), territoryColumnIndex);
-            //Validation territoryValidation = workSheet.Validations[workSheet.Validations.Add(territoryArea)];
-            //territoryValidation.Type = ValidationType.List;
-            //territoryValidation.Formula1 = "=Master!$B$1:$B$" + territorryName.Count;
 
             //Save Workbook
             var stream = new System.IO.MemoryStream();
