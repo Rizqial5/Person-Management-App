@@ -27,6 +27,12 @@
   <wsdl:message name="IStateProvinceService_GetTerritoriesByRegionCode_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetTerritoriesByRegionCodeResponse" />
   </wsdl:message>
+  <wsdl:message name="IStateProvinceService_GetTerritoriesIdByName_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTerritoriesIdByName" />
+  </wsdl:message>
+  <wsdl:message name="IStateProvinceService_GetTerritoriesIdByName_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTerritoriesIdByNameResponse" />
+  </wsdl:message>
   <wsdl:message name="IStateProvinceService_GetAllTerritories_InputMessage">
     <wsdl:part name="parameters" element="tns:GetAllTerritories" />
   </wsdl:message>
@@ -38,6 +44,18 @@
   </wsdl:message>
   <wsdl:message name="IStateProvinceService_GetCountryRegions_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetCountryRegionsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStateProvinceService_GetCountryRegionIdByName_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCountryRegionIdByName" />
+  </wsdl:message>
+  <wsdl:message name="IStateProvinceService_GetCountryRegionIdByName_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCountryRegionIdByNameResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStateProvinceService_ImportFromExcel_InputMessage">
+    <wsdl:part name="parameters" element="tns:ImportFromExcel" />
+  </wsdl:message>
+  <wsdl:message name="IStateProvinceService_ImportFromExcel_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ImportFromExcelResponse" />
   </wsdl:message>
   <wsdl:message name="IStateProvinceService_InsertStateProvince_InputMessage">
     <wsdl:part name="parameters" element="tns:InsertStateProvince" />
@@ -70,6 +88,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IStateProvinceService/GetTerritoriesByRegionCode" message="tns:IStateProvinceService_GetTerritoriesByRegionCode_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IStateProvinceService/GetTerritoriesByRegionCodeResponse" message="tns:IStateProvinceService_GetTerritoriesByRegionCode_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetTerritoriesIdByName">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStateProvinceService/GetTerritoriesIdByName" message="tns:IStateProvinceService_GetTerritoriesIdByName_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStateProvinceService/GetTerritoriesIdByNameResponse" message="tns:IStateProvinceService_GetTerritoriesIdByName_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetAllTerritories">
       <wsdl:input wsaw:Action="http://tempuri.org/IStateProvinceService/GetAllTerritories" message="tns:IStateProvinceService_GetAllTerritories_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IStateProvinceService/GetAllTerritoriesResponse" message="tns:IStateProvinceService_GetAllTerritories_OutputMessage" />
@@ -77,6 +99,14 @@
     <wsdl:operation name="GetCountryRegions">
       <wsdl:input wsaw:Action="http://tempuri.org/IStateProvinceService/GetCountryRegions" message="tns:IStateProvinceService_GetCountryRegions_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IStateProvinceService/GetCountryRegionsResponse" message="tns:IStateProvinceService_GetCountryRegions_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCountryRegionIdByName">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStateProvinceService/GetCountryRegionIdByName" message="tns:IStateProvinceService_GetCountryRegionIdByName_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStateProvinceService/GetCountryRegionIdByNameResponse" message="tns:IStateProvinceService_GetCountryRegionIdByName_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ImportFromExcel">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStateProvinceService/ImportFromExcel" message="tns:IStateProvinceService_ImportFromExcel_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStateProvinceService/ImportFromExcelResponse" message="tns:IStateProvinceService_ImportFromExcel_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="InsertStateProvince">
       <wsdl:input wsaw:Action="http://tempuri.org/IStateProvinceService/InsertStateProvince" message="tns:IStateProvinceService_InsertStateProvince_InputMessage" />
@@ -120,6 +150,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetTerritoriesIdByName">
+      <soap:operation soapAction="http://tempuri.org/IStateProvinceService/GetTerritoriesIdByName" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetAllTerritories">
       <soap:operation soapAction="http://tempuri.org/IStateProvinceService/GetAllTerritories" style="document" />
       <wsdl:input>
@@ -131,6 +170,24 @@
     </wsdl:operation>
     <wsdl:operation name="GetCountryRegions">
       <soap:operation soapAction="http://tempuri.org/IStateProvinceService/GetCountryRegions" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCountryRegionIdByName">
+      <soap:operation soapAction="http://tempuri.org/IStateProvinceService/GetCountryRegionIdByName" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ImportFromExcel">
+      <soap:operation soapAction="http://tempuri.org/IStateProvinceService/ImportFromExcel" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

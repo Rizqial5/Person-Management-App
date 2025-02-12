@@ -92,5 +92,26 @@ namespace PersoneManagement.Web.Models.Repositories
 
             return data;
         }
+
+        public string GetCountryRegionIdByName(string regionName)
+        {
+            var data = _stateProvinceClient.GetCountryRegionIdByName(regionName);
+
+            return data;
+        }
+
+        public int GetTerritoriesIdByName(string territoriesName)
+        {
+            var data = _stateProvinceClient.GetTerritoriesIdByName(territoriesName);
+
+            return data;
+        }
+
+        public void ImportFromExcel(DTO.StateProvinceDTO stateProvinceDTO)
+        {
+            var result = Mapping.Mapper.Map<StateProvinceDTO>(stateProvinceDTO);
+
+            _stateProvinceClient.ImportFromExcel(result);
+        }
     }
 }

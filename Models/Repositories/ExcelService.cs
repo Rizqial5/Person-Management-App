@@ -26,7 +26,8 @@ namespace PersoneManagement.Web.Models.Repositories
                 Name = sp.Name,
                 Code = sp.StateProvinceCode,
                 TerritoryRegion = sp.TerritorryNames + " - " + sp.CountryRegionNames,
-                Flag = sp.IsOnlyStateProvinceFlag
+                Flag = sp.IsOnlyStateProvinceFlag,
+                RowGUID = sp.rowguid
             });
 
 
@@ -49,20 +50,22 @@ namespace PersoneManagement.Web.Models.Repositories
 
 
             //Add Header
-
             workSheet.Cells[0, 0].PutValue("StateProvinceId");
-            workSheet.Cells.HideColumn(0);
-            //workSheet.Cells[0, 0].;
             workSheet.Cells[0, 1].PutValue("Name");
             workSheet.Cells[0, 2].PutValue("State Province Code");
             workSheet.Cells[0, 3].PutValue("Territorry - Region");
             workSheet.Cells[0, 4].PutValue("Flag");
+            workSheet.Cells[0, 5].PutValue("RowGuid");
 
+            //Set for customize column width            
             maxColumnWidths[1] = "Name".Length;
             maxColumnWidths[2] = "State Province Code".Length;
             maxColumnWidths[3] = "Territorry - Region".Length;
             maxColumnWidths[4] = "Flag".Length;
 
+            //Set Hide Column ID and RowGuid
+            workSheet.Cells.HideColumn(0);
+            workSheet.Cells.HideColumn(5);
 
 
             // add lock style
@@ -90,6 +93,7 @@ namespace PersoneManagement.Web.Models.Repositories
                 workSheet.Cells[i + 1, 2].PutValue(data.ToList()[i].Code);
                 workSheet.Cells[i + 1, 3].PutValue(data.ToList()[i].TerritoryRegion);
                 workSheet.Cells[i + 1, 4].PutValue(SetBoolFlag(data.ToList()[i].Flag));
+                workSheet.Cells[i + 1, 5].PutValue(data.ToList()[i].RowGUID);
 
 
                 maxColumnWidths[1] = Math.Max(maxColumnWidths[1], data.ToList()[i].Name.Length);

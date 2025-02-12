@@ -304,6 +304,7 @@
     <Content Include="Views\Person\Edit.cshtml" />
     <Content Include="Views\Address\Create.cshtml" />
     <Content Include="Views\Address\Edit.cshtml" />
+    <Content Include="Views\StateProvince\Upload.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

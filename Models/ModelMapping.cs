@@ -35,6 +35,7 @@ namespace PersoneManagement.Web.Models
 
             CreateMap<DTO.PersonDTO, PersonService.PersonDTO>().ReverseMap();
             CreateMap<DTO.AddressDTO, AddressService.AddressDTO>().ReverseMap();
+            CreateMap<DTO.StateProvinceDTO, StateProvinceService.StateProvinceDTO>().ReverseMap();
 
 
         }

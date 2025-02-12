@@ -35,13 +35,9 @@
 <h2>State Province</h2>
 
 <div style="display:block">
-
     <a href="@Url.Action("Create", "StateProvince")" class="btn btn-primary">
         + Add State Province
     </a>
-
-
-
 </div>
 
 <table class="table" id="stateProvinceData" style="width:100%">
@@ -74,6 +70,10 @@
 
 <a href="@Url.Action("StateProvinceExportToExcel","StateProvince" )" class="btn btn-primary">
     Export to Excel
+</a>
+
+<a href="@Url.Action("Upload","StateProvince" )" class="btn btn-primary">
+    Import from Excel
 </a>
 
 @section scripts {

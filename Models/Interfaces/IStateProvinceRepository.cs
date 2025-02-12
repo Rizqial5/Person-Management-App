@@ -24,5 +24,11 @@ namespace PersoneManagement.Web.Models.Interfaces
 
         void DeleteStateProvince(int id);
 
+        string GetCountryRegionIdByName(string regionName);
+
+        int GetTerritoriesIdByName(string territoriesName);
+
+        void ImportFromExcel(DTO.StateProvinceDTO stateProvinceDTO);
+
     }
 }

@@ -43,6 +43,20 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetTerritoriesIdByName">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="territoriesName" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTerritoriesIdByNameResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetTerritoriesIdByNameResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="GetAllTerritories">
     <xs:complexType>
       <xs:sequence />
@@ -67,10 +81,36 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="InsertStateProvince">
+  <xs:element name="GetCountryRegionIdByName">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="regionName" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCountryRegionIdByNameResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetCountryRegionIdByNameResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ImportFromExcel">
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/AdventureWorks.Model" minOccurs="0" name="stateProvinceDTO" nillable="true" type="q6:StateProvinceDTO" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ImportFromExcelResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsertStateProvince">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/AdventureWorks.Model" minOccurs="0" name="stateProvinceDTO" nillable="true" type="q7:StateProvinceDTO" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -82,8 +122,8 @@
   <xs:element name="UpdateStateProvince">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/AdventureWorks.Model" minOccurs="0" name="stateProvinceDTO" nillable="true" type="q7:StateProvinceDTO" />
-        <xs:element xmlns:q8="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="oldGUid" type="q8:guid" />
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/AdventureWorks.Model" minOccurs="0" name="stateProvinceDTO" nillable="true" type="q8:StateProvinceDTO" />
+        <xs:element xmlns:q9="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="oldGUid" type="q9:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
