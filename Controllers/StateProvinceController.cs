@@ -210,17 +210,15 @@ namespace PersoneManagement.Web.Controllers
         {
             var data = _stateProvinceRepository.GetAll().Select(sp => new
             {
-                StateProvinceID = sp.StateProvinceID,
+                StateProvinceID = sp.StateProvinceCode,
                 Name = sp.Name,
-                CountryName = sp.CountryRegionNames,
-                CountryCode = sp.CountryRegionCode,
                 Code = sp.StateProvinceCode,
-                TerritoryId = sp.TerritoryID,
-                Territory = sp.TerritorryNames,
+                TerritoryRegion = sp.TerritorryNames + " - "+ sp.CountryRegionNames
             });
 
-            var countryRegion = data.Select(d => d.CountryName).ToList();
-            var territorryName = data.Select(d => d.Territory).ToList();
+            //var countryRegion = data.Select(d => d.CountryName).ToList();
+            //var territorryName = data.Select(d => d.Territory).ToList();
+            var territoryRegion = data.Select(d => d.TerritoryRegion).ToList();
 
             // new Workbook
 
@@ -230,45 +228,46 @@ namespace PersoneManagement.Web.Controllers
 
             //Add Header
 
-            workSheet.Cells[0, 0].PutValue("StateProvinceID");
+            workSheet.Cells[0, 0].PutValue("StateProvinceId");
             workSheet.Cells[0, 1].PutValue("Name");
-            workSheet.Cells[0, 2].PutValue("Country Name");
-            workSheet.Cells[0, 3].PutValue("Territorry Name");
+            workSheet.Cells[0, 2].PutValue("State Province Code");
+            workSheet.Cells[0, 3].PutValue("Territorry - Region");
 
             for (int i = 0; i < data.Count(); i++)
             {
-                workSheet.Cells[i + 1, 0].PutValue(data.ToList()[i].StateProvinceID);
-                workSheet.Cells[i + 1, 1].PutValue(data.ToList()[i].Name);
-                workSheet.Cells[i + 1, 2].PutValue(data.ToList()[i].CountryName);
-                workSheet.Cells[i + 1, 3].PutValue(data.ToList()[i].Territory);
+                workSheet.Cells[i + 1, 0].PutValue(data.ToList()[i].Name);
+                workSheet.Cells[i + 1, 1].PutValue(data.ToList()[i].Code);
+                workSheet.Cells[i + 1, 2].PutValue(data.ToList()[i].TerritoryRegion);
             }
 
             // Master Sheet
             Worksheet masterSheet = workBook.Worksheets.Add("Master");
 
-            for (int i = 0; i < countryRegion.Count; i++)
+            for (int i = 0; i < territoryRegion.Count; i++)
             {
-                masterSheet.Cells[i, 0].PutValue(countryRegion[i]);
+                masterSheet.Cells[i, 0].PutValue(territoryRegion[i]);
             }
 
-            for (int i = 0; i < territorryName.Count; i++)
-            {
-                masterSheet.Cells[i, 0].PutValue(territorryName[i]);
-            }
+            //for (int i = 0; i < territorryName.Count; i++)
+            //{
+            //    masterSheet.Cells[i, 1].PutValue(territorryName[i]);
+            //}
+
+            //data validation untuk tipe integer /number
 
             //Data validation
-            int countryColumnIndex = 2;
-            CellArea countryArea = CellArea.CreateCellArea(1, countryColumnIndex, data.Count(), countryColumnIndex);
-            Validation countryValidation = workSheet.Validations[workSheet.Validations.Add(countryArea)];
-            countryValidation.Type = ValidationType.List;
-            countryValidation.Formula1 = "=Master!$A$1:$A$" + countryRegion.Count;
-
-            //Data validation
-            int territoryColumnIndex = 3;
-            CellArea territoryArea = CellArea.CreateCellArea(1, territoryColumnIndex, data.Count(), territoryColumnIndex);
-            Validation territoryValidation = workSheet.Validations[workSheet.Validations.Add(territoryArea)];
+            int territoryRegionColumnIndex = 2;
+            CellArea territoryRegionArea = CellArea.CreateCellArea(1, territoryRegionColumnIndex, data.Count(), territoryRegionColumnIndex);
+            Validation territoryValidation = workSheet.Validations[workSheet.Validations.Add(territoryRegionArea)];
             territoryValidation.Type = ValidationType.List;
-            territoryValidation.Formula1 = "=Master!$B$1:$B$" + territorryName.Count;
+            territoryValidation.Formula1 = "=Master!$A$1:$A$" + territoryRegion.Count;
+
+            ////Data validation
+            //int territoryColumnIndex = 3;
+            //CellArea territoryArea = CellArea.CreateCellArea(1, territoryColumnIndex, data.Count(), territoryColumnIndex);
+            //Validation territoryValidation = workSheet.Validations[workSheet.Validations.Add(territoryArea)];
+            //territoryValidation.Type = ValidationType.List;
+            //territoryValidation.Formula1 = "=Master!$B$1:$B$" + territorryName.Count;
 
             //Save Workbook
             var stream = new System.IO.MemoryStream();
