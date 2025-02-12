@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Aspose.Cells;
 
 
 namespace PersoneManagement.Web.Controllers
@@ -203,6 +204,80 @@ namespace PersoneManagement.Web.Controllers
                 }
                 );
             }
+        }
+
+        public ActionResult ExportToExcel()
+        {
+            var data = _stateProvinceRepository.GetAll().Select(sp => new
+            {
+                StateProvinceID = sp.StateProvinceID,
+                Name = sp.Name,
+                CountryName = sp.CountryRegionNames,
+                CountryCode = sp.CountryRegionCode,
+                Code = sp.StateProvinceCode,
+                TerritoryId = sp.TerritoryID,
+                Territory = sp.TerritorryNames,
+            });
+
+            var countryRegion = data.Select(d => d.CountryName).ToList();
+            var territorryName = data.Select(d => d.Territory).ToList();
+
+            // new Workbook
+
+            Workbook workBook = new Workbook();
+            Worksheet workSheet = workBook.Worksheets[0];
+            workSheet.Name = "State Provinces";
+
+            //Add Header
+
+            workSheet.Cells[0, 0].PutValue("StateProvinceID");
+            workSheet.Cells[0, 1].PutValue("Name");
+            workSheet.Cells[0, 2].PutValue("Country Name");
+            workSheet.Cells[0, 3].PutValue("Territorry Name");
+
+            for (int i = 0; i < data.Count(); i++)
+            {
+                workSheet.Cells[i + 1, 0].PutValue(data.ToList()[i].StateProvinceID);
+                workSheet.Cells[i + 1, 1].PutValue(data.ToList()[i].Name);
+                workSheet.Cells[i + 1, 2].PutValue(data.ToList()[i].CountryName);
+                workSheet.Cells[i + 1, 3].PutValue(data.ToList()[i].Territory);
+            }
+
+            // Master Sheet
+            Worksheet masterSheet = workBook.Worksheets.Add("Master");
+
+            for (int i = 0; i < countryRegion.Count; i++)
+            {
+                masterSheet.Cells[i, 0].PutValue(countryRegion[i]);
+            }
+
+            for (int i = 0; i < territorryName.Count; i++)
+            {
+                masterSheet.Cells[i, 0].PutValue(territorryName[i]);
+            }
+
+            //Data validation
+            int countryColumnIndex = 2;
+            CellArea countryArea = CellArea.CreateCellArea(1, countryColumnIndex, data.Count(), countryColumnIndex);
+            Validation countryValidation = workSheet.Validations[workSheet.Validations.Add(countryArea)];
+            countryValidation.Type = ValidationType.List;
+            countryValidation.Formula1 = "=Master!$A$1:$A$" + countryRegion.Count;
+
+            //Data validation
+            int territoryColumnIndex = 3;
+            CellArea territoryArea = CellArea.CreateCellArea(1, territoryColumnIndex, data.Count(), territoryColumnIndex);
+            Validation territoryValidation = workSheet.Validations[workSheet.Validations.Add(territoryArea)];
+            territoryValidation.Type = ValidationType.List;
+            territoryValidation.Formula1 = "=Master!$B$1:$B$" + territorryName.Count;
+
+            //Save Workbook
+            var stream = new System.IO.MemoryStream();
+
+            workBook.Save(stream, SaveFormat.Xlsx);
+
+            //return
+            return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "StateProvince.xlsx");
+
         }
 
         public JsonResult ShowTerritorryList(string regionCode)

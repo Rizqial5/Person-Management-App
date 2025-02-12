@@ -158,10 +158,12 @@
     <Compile Include="Models\DTO\SalesTerritorryDTO.cs" />
     <Compile Include="Models\DTO\StateProvinceDTO.cs" />
     <Compile Include="Models\Interfaces\IAddressRepository.cs" />
+    <Compile Include="Models\Interfaces\IExportExcelService.cs" />
     <Compile Include="Models\Interfaces\IPersonRepository.cs" />
     <Compile Include="Models\Interfaces\IStateProvinceRepository.cs" />
     <Compile Include="Models\ModelMapping.cs" />
     <Compile Include="Models\Repositories\AddressRepository.cs" />
+    <Compile Include="Models\Repositories\ExportExcelService.cs" />
     <Compile Include="Models\Repositories\PersonRepository.cs" />
     <Compile Include="Models\Repositories\StateProvinceRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
