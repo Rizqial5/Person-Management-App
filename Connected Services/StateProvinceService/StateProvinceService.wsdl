@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="http://tempuri.org/" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" name="StateProvinceService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:64371/Services/StateProvinceService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:64371/Services/StateProvinceService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:64371/Services/StateProvinceService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/AdventureWorks.Model" />
+      <xsd:import schemaLocation="http://localhost:64371/Services/StateProvinceService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/System.Web.Mvc" />
+      <xsd:import schemaLocation="http://localhost:64371/Services/StateProvinceService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/PersoneManagement.Web.Models.DTO" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IStateProvinceService_GetAll_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAll" />
+  </wsdl:message>
+  <wsdl:message name="IStateProvinceService_GetAll_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStateProvinceService_GetStateProvinceById_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetStateProvinceById" />
+  </wsdl:message>
+  <wsdl:message name="IStateProvinceService_GetStateProvinceById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetStateProvinceByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStateProvinceService_GetTerritoriesByRegionCode_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTerritoriesByRegionCode" />
+  </wsdl:message>
+  <wsdl:message name="IStateProvinceService_GetTerritoriesByRegionCode_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTerritoriesByRegionCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStateProvinceService_GetAllTerritories_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllTerritories" />
+  </wsdl:message>
+  <wsdl:message name="IStateProvinceService_GetAllTerritories_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllTerritoriesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStateProvinceService_GetCountryRegions_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCountryRegions" />
+  </wsdl:message>
+  <wsdl:message name="IStateProvinceService_GetCountryRegions_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCountryRegionsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStateProvinceService_InsertStateProvince_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertStateProvince" />
+  </wsdl:message>
+  <wsdl:message name="IStateProvinceService_InsertStateProvince_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertStateProvinceResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStateProvinceService_UpdateStateProvince_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateStateProvince" />
+  </wsdl:message>
+  <wsdl:message name="IStateProvinceService_UpdateStateProvince_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateStateProvinceResponse" />
+  </wsdl:message>
+  <wsdl:message name="IStateProvinceService_DeleteStateProvince_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteStateProvince" />
+  </wsdl:message>
+  <wsdl:message name="IStateProvinceService_DeleteStateProvince_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteStateProvinceResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IStateProvinceService">
+    <wsdl:operation name="GetAll">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStateProvinceService/GetAll" message="tns:IStateProvinceService_GetAll_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStateProvinceService/GetAllResponse" message="tns:IStateProvinceService_GetAll_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStateProvinceById">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStateProvinceService/GetStateProvinceById" message="tns:IStateProvinceService_GetStateProvinceById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStateProvinceService/GetStateProvinceByIdResponse" message="tns:IStateProvinceService_GetStateProvinceById_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTerritoriesByRegionCode">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStateProvinceService/GetTerritoriesByRegionCode" message="tns:IStateProvinceService_GetTerritoriesByRegionCode_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStateProvinceService/GetTerritoriesByRegionCodeResponse" message="tns:IStateProvinceService_GetTerritoriesByRegionCode_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllTerritories">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStateProvinceService/GetAllTerritories" message="tns:IStateProvinceService_GetAllTerritories_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStateProvinceService/GetAllTerritoriesResponse" message="tns:IStateProvinceService_GetAllTerritories_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCountryRegions">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStateProvinceService/GetCountryRegions" message="tns:IStateProvinceService_GetCountryRegions_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStateProvinceService/GetCountryRegionsResponse" message="tns:IStateProvinceService_GetCountryRegions_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertStateProvince">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStateProvinceService/InsertStateProvince" message="tns:IStateProvinceService_InsertStateProvince_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStateProvinceService/InsertStateProvinceResponse" message="tns:IStateProvinceService_InsertStateProvince_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateStateProvince">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStateProvinceService/UpdateStateProvince" message="tns:IStateProvinceService_UpdateStateProvince_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStateProvinceService/UpdateStateProvinceResponse" message="tns:IStateProvinceService_UpdateStateProvince_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteStateProvince">
+      <wsdl:input wsaw:Action="http://tempuri.org/IStateProvinceService/DeleteStateProvince" message="tns:IStateProvinceService_DeleteStateProvince_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IStateProvinceService/DeleteStateProvinceResponse" message="tns:IStateProvinceService_DeleteStateProvince_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IStateProvinceService" type="tns:IStateProvinceService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetAll">
+      <soap:operation soapAction="http://tempuri.org/IStateProvinceService/GetAll" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStateProvinceById">
+      <soap:operation soapAction="http://tempuri.org/IStateProvinceService/GetStateProvinceById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTerritoriesByRegionCode">
+      <soap:operation soapAction="http://tempuri.org/IStateProvinceService/GetTerritoriesByRegionCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllTerritories">
+      <soap:operation soapAction="http://tempuri.org/IStateProvinceService/GetAllTerritories" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCountryRegions">
+      <soap:operation soapAction="http://tempuri.org/IStateProvinceService/GetCountryRegions" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertStateProvince">
+      <soap:operation soapAction="http://tempuri.org/IStateProvinceService/InsertStateProvince" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateStateProvince">
+      <soap:operation soapAction="http://tempuri.org/IStateProvinceService/UpdateStateProvince" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteStateProvince">
+      <soap:operation soapAction="http://tempuri.org/IStateProvinceService/DeleteStateProvince" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="StateProvinceService">
+    <wsdl:port name="BasicHttpBinding_IStateProvinceService" binding="tns:BasicHttpBinding_IStateProvinceService">
+      <soap:address location="http://localhost:64371/Services/StateProvinceService.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/AdventureWorks.Model" xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/AdventureWorks.Model" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:64371/Services/StateProvinceService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/System.Web.Mvc" />
+  <xs:import schemaLocation="http://localhost:64371/Services/StateProvinceService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="ArrayOfStateProvinceDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="StateProvinceDTO" nillable="true" type="tns:StateProvinceDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfStateProvinceDTO" nillable="true" type="tns:ArrayOfStateProvinceDTO" />
+  <xs:complexType name="StateProvinceDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CountriesRegionsDdl" nillable="true" type="tns:ArrayOfCountryRegion" />
+      <xs:element minOccurs="0" name="CountryRegionCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CountryRegionNames" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsOnlyStateProvinceFlag" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ModifiedDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/System.Web.Mvc" minOccurs="0" name="SalesTerritorriesDdl" nillable="true" type="q1:ArrayOfSelectListItem" />
+      <xs:element minOccurs="0" name="StateProvinceCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StateProvinceID" type="xs:int" />
+      <xs:element minOccurs="0" name="TerritorryNames" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TerritoryID" type="xs:int" />
+      <xs:element minOccurs="0" name="rowguid" type="ser:guid" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="StateProvinceDTO" nillable="true" type="tns:StateProvinceDTO" />
+  <xs:complexType name="ArrayOfCountryRegion">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CountryRegion" nillable="true" type="tns:CountryRegion" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCountryRegion" nillable="true" type="tns:ArrayOfCountryRegion" />
+  <xs:complexType name="CountryRegion">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CountryRegionCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ModifiedDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SalesTerritories" nillable="true" type="tns:ArrayOfSalesTerritory" />
+      <xs:element minOccurs="0" name="StateProvinces" nillable="true" type="tns:ArrayOfStateProvince" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CountryRegion" nillable="true" type="tns:CountryRegion" />
+  <xs:complexType name="ArrayOfSalesTerritory">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="SalesTerritory" nillable="true" type="tns:SalesTerritory" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSalesTerritory" nillable="true" type="tns:ArrayOfSalesTerritory" />
+  <xs:complexType name="SalesTerritory">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CostLastYear" type="xs:decimal" />
+      <xs:element minOccurs="0" name="CostYTD" type="xs:decimal" />
+      <xs:element minOccurs="0" name="CountryRegion" nillable="true" type="tns:CountryRegion" />
+      <xs:element minOccurs="0" name="CountryRegionCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Group" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ModifiedDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SalesLastYear" type="xs:decimal" />
+      <xs:element minOccurs="0" name="SalesYTD" type="xs:decimal" />
+      <xs:element minOccurs="0" name="StateProvinces" nillable="true" type="tns:ArrayOfStateProvince" />
+      <xs:element minOccurs="0" name="TerritoryID" type="xs:int" />
+      <xs:element minOccurs="0" name="rowguid" type="ser:guid" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SalesTerritory" nillable="true" type="tns:SalesTerritory" />
+  <xs:complexType name="ArrayOfStateProvince">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="StateProvince" nillable="true" type="tns:StateProvince" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfStateProvince" nillable="true" type="tns:ArrayOfStateProvince" />
+  <xs:complexType name="StateProvince">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Addresses" nillable="true" type="tns:ArrayOfAddress" />
+      <xs:element minOccurs="0" name="CountryRegion" nillable="true" type="tns:CountryRegion" />
+      <xs:element minOccurs="0" name="CountryRegionCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsOnlyStateProvinceFlag" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ModifiedDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SalesTerritory" nillable="true" type="tns:SalesTerritory" />
+      <xs:element minOccurs="0" name="StateProvinceCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StateProvinceID" type="xs:int" />
+      <xs:element minOccurs="0" name="TerritoryID" type="xs:int" />
+      <xs:element minOccurs="0" name="rowguid" type="ser:guid" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="StateProvince" nillable="true" type="tns:StateProvince" />
+  <xs:complexType name="ArrayOfAddress">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Address" nillable="true" type="tns:Address" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfAddress" nillable="true" type="tns:ArrayOfAddress" />
+  <xs:complexType name="Address">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AddressID" type="xs:int" />
+      <xs:element minOccurs="0" name="AddressLine1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AddressLine2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BusinessEntityAddresses" nillable="true" type="tns:ArrayOfBusinessEntityAddress" />
+      <xs:element minOccurs="0" name="City" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ModifiedDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="PostalCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StateProvince" nillable="true" type="tns:StateProvince" />
+      <xs:element minOccurs="0" name="StateProvinceID" type="xs:int" />
+      <xs:element minOccurs="0" name="rowguid" type="ser:guid" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Address" nillable="true" type="tns:Address" />
+  <xs:complexType name="ArrayOfBusinessEntityAddress">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BusinessEntityAddress" nillable="true" type="tns:BusinessEntityAddress" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBusinessEntityAddress" nillable="true" type="tns:ArrayOfBusinessEntityAddress" />
+  <xs:complexType name="BusinessEntityAddress">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Address" nillable="true" type="tns:Address" />
+      <xs:element minOccurs="0" name="AddressID" type="xs:int" />
+      <xs:element minOccurs="0" name="AddressType" nillable="true" type="tns:AddressType" />
+      <xs:element minOccurs="0" name="AddressTypeID" type="xs:int" />
+      <xs:element minOccurs="0" name="BusinessEntity" nillable="true" type="tns:BusinessEntity" />
+      <xs:element minOccurs="0" name="BusinessEntityID" type="xs:int" />
+      <xs:element minOccurs="0" name="ModifiedDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="rowguid" type="ser:guid" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BusinessEntityAddress" nillable="true" type="tns:BusinessEntityAddress" />
+  <xs:complexType name="AddressType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AddressTypeID" type="xs:int" />
+      <xs:element minOccurs="0" name="BusinessEntityAddresses" nillable="true" type="tns:ArrayOfBusinessEntityAddress" />
+      <xs:element minOccurs="0" name="ModifiedDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="rowguid" type="ser:guid" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AddressType" nillable="true" type="tns:AddressType" />
+  <xs:complexType name="BusinessEntity">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BusinessEntityAddresses" nillable="true" type="tns:ArrayOfBusinessEntityAddress" />
+      <xs:element minOccurs="0" name="BusinessEntityID" type="xs:int" />
+      <xs:element minOccurs="0" name="ModifiedDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Person" nillable="true" type="tns:Person" />
+      <xs:element minOccurs="0" name="rowguid" type="ser:guid" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BusinessEntity" nillable="true" type="tns:BusinessEntity" />
+  <xs:complexType name="Person">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AdditionalContactInfo" nillable="true">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:any minOccurs="0" processContents="lax" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="BusinessEntity" nillable="true" type="tns:BusinessEntity" />
+      <xs:element minOccurs="0" name="BusinessEntityID" type="xs:int" />
+      <xs:element minOccurs="0" name="Demographics" nillable="true">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:any minOccurs="0" processContents="lax" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="EmailPromotion" type="xs:int" />
+      <xs:element minOccurs="0" name="FirstName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LastName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MiddleName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ModifiedDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="NameStyle" type="xs:boolean" />
+      <xs:element minOccurs="0" name="PersonType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Suffix" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="rowguid" type="ser:guid" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Person" nillable="true" type="tns:Person" />
+  <xs:complexType name="ArrayOfCountryRegionDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CountryRegionDTO" nillable="true" type="tns:CountryRegionDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCountryRegionDTO" nillable="true" type="tns:ArrayOfCountryRegionDTO" />
+  <xs:complexType name="CountryRegionDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CountryRegionCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CountryRegionDTO" nillable="true" type="tns:CountryRegionDTO" />
+</xs:schema>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="fdae6c1e-3e59-40e0-b819-06d5ba54fa86" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:64371/Services/StateProvinceService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="StateProvinceService.wsdl" MetadataType="Wsdl" ID="fe6b1993-ba6f-4726-af6b-dfc8a9108185" SourceId="1" SourceUrl="http://localhost:64371/Services/StateProvinceService.svc?wsdl" />
+    <MetadataFile FileName="StateProvinceService2.xsd" MetadataType="Schema" ID="0d4507a7-c7c1-4c30-a38f-e23a277c8cac" SourceId="1" SourceUrl="http://localhost:64371/Services/StateProvinceService.svc?xsd=xsd1" />
+    <MetadataFile FileName="StateProvinceService.disco" MetadataType="Disco" ID="2465b8b7-d599-4c70-b800-ca194d58b061" SourceId="1" SourceUrl="http://localhost:64371/Services/StateProvinceService.svc?disco" />
+    <MetadataFile FileName="StateProvinceService1.xsd" MetadataType="Schema" ID="f7572618-480a-4681-9754-5efce10390e4" SourceId="1" SourceUrl="http://localhost:64371/Services/StateProvinceService.svc?xsd=xsd0" />
+    <MetadataFile FileName="StateProvinceService3.xsd" MetadataType="Schema" ID="307f1ee2-c295-4101-984a-df8db90ee45b" SourceId="1" SourceUrl="http://localhost:64371/Services/StateProvinceService.svc?xsd=xsd3" />
+    <MetadataFile FileName="StateProvinceService.xsd" MetadataType="Schema" ID="2505218b-bdc3-4e88-a0de-c70b48a8b287" SourceId="1" SourceUrl="http://localhost:64371/Services/StateProvinceService.svc?xsd=xsd2" />
+    <MetadataFile FileName="StateProvinceService4.xsd" MetadataType="Schema" ID="8ac3a071-1495-44b5-832f-dad8e0d41d54" SourceId="1" SourceUrl="http://localhost:64371/Services/StateProvinceService.svc?xsd=xsd4" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

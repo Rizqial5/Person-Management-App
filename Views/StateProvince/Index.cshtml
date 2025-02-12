@@ -1,0 +1,201 @@
+﻿@model IEnumerable<PersoneManagement.Web.StateProvinceService.StateProvinceDTO>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.1.7/css/fixedHeader.dataTables.min.css">
+    <style>
+        .dataTables_wrapper {
+            width: 900px;
+        }
+
+            .dataTables_wrapper .dataTables_paginate {
+                float: none;
+                text-align: center;
+            }
+
+            .dataTables_wrapper .dataTables_info {
+                float: left;
+                padding-top: 0.755em;
+            }
+
+            .dataTables_wrapper .bottom {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+    </style>
+}
+
+<h2>State Province</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table" id="stateProvinceData" style="width:100%">
+    <thead>
+        <tr>
+            <th>Actions</th>
+            <th>No. </th>
+            <th>
+                Country Name
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                Code
+            </th>
+            <th>
+                Territorry
+            </th>
+            <th>
+                Flag
+            </th>
+            <th>
+                Modified Date
+            </th>
+        </tr>
+    <thead>
+
+</table>
+
+@section scripts {
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.datatables.net/fixedheader/3.1.7/js/dataTables.fixedHeader.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var table = $('#stateProvinceData').DataTable({
+                "ajax": {
+                    "url": "/StateProvince/GetStates",
+                    "type": "GET",
+                    "datatype": "json"
+                },
+                "columns": [
+                    {
+                        "data": null,
+                        "render": function (data, type, row) {
+                            var editLink = '@Url.Action("Edit", "StateProvince", new { id = "PLACEHOLDER"})'.replace("PLACEHOLDER", row.StateProvinceID);
+
+                            return '<div class="btn-group">' +
+                                '<a href="' + editLink + '" class="btn btn-primary" data-id="' + row.StateProvinceID+ '" id="editButton" style="margin-right: 5px;">' +
+                                'Edit</a>' +
+                                '<button id="deleteButton" class="btn btn-danger deleteButton" data-id="' + row.StateProvinceID + '">' +
+                                'Delete</button>' +
+                                '</div>'
+
+                        }
+                    },
+                    {
+                        "data": null,
+                        "render": function (data, type, row, meta) {
+                            return meta.row + 1;  // Display the row number (meta.row is zero-indexed)
+                        }
+                    },
+                    { "data": "CountryRegionNames" },
+                    { "data": "Name" },
+                    { "data": "StateProvinceCode" },
+                    { "data": "TerritorryNames" },
+                    { "data": "IsOnlyStateProvinceFlag" },
+                    {
+                        "data": "ModifiedDate",
+                        "render": function (data, type, row) {
+                            return moment(data).format('DD-MMM-YYYY HH:mm:ss');
+                        }
+                    },
+                ],
+/*                "order": [[0, "desc"]],*/
+                "dom": '<"top"f>rt<"bottom"lpi><"clear">', // search on the top right, show entries, paging, showing on the bottom
+                "pagingType": "full_numbers",
+                "scrollY": "400px",
+                "scrollX": true,
+                "scrollCollapse": true,
+                "fixedHeader": true,
+                //"pagingType": "simple_numbers",
+                "pageLength": 10,
+                "lengthMenu": [10, 25, 50, 100],
+                "scrollY": "400px",
+                "scrollX": true,
+                "scrollCollapse": true,
+                "fixedHeader": true,
+                "language": {
+                    "paginate": {
+                        "previous": "Previous",
+                        "next": "Next",
+                        "first": "<<",
+                        "last": ">>"
+                    }
+                }
+            });
+        });
+
+        ////Use this for datatables, becase the buttons are created dynamically
+        $(document).on('click', '#deleteButton', function () {
+            const itemId = $(this).data('id'); // Retrieve the ID of the item to delete
+
+            Swal.fire({
+                title: "Are you sure?",
+                text: "Once deleted, you will not be able to recover this item!",
+                icon: "warning",
+                showCancelButton: true, // Enable the cancel button
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((result) => {
+                    if (result.isConfirmed) {
+                        // Make an AJAX call to delete the item
+                        $.ajax({
+                            url: '/StateProvince/Delete', // URL of your Delete method
+                            type: 'POST', // Use POST for data modification
+                            data: { id: itemId }, // Pass the ID as data
+                            success: function (response) {
+                                if (response.success) {
+                                    Swal.fire("Deleted!", response.message, "success").then(() => {
+                                        $("#stateProvinceData").DataTable().ajax.reload(); // Reload the page or update UI
+                                    });
+                                } else {
+                                    Swal.fire("Error!", response.message, "error");
+                                }
+                                Swal.fire("Poof! Your item has been deleted!", {
+                                    icon: "success",
+                                }).then(() => {
+                                    // Optional: Reload the page or update the UI
+                                    location.reload();
+                                });
+                            },
+                            error: function (error) {
+                                Swal.fire("Error!", "Unable to delete the item " + response.message + " . Please try again.", "error");
+                            }
+                        });
+                    } else if (result.dismiss == Swal.DismissReason.cancel) {
+                        Swal.fire("Your item is safe!");
+                    }
+                });
+        });
+
+        $(document).ready(function () {
+            var table = $('#stateProvinceData').DataTable();
+
+            // Unbind the default search event
+            $('#stateProvinceData_filter input').unbind();
+
+            // Bind a new event handler
+            $('#stateProvinceData_filter input').on('keyup', function (e) {
+                var value = $(this).val();
+                if (value.length >= 3 || value.length === 0) {
+                    table.search(value).draw();
+                }
+            });
+        });
+    </script>
+
+}
+

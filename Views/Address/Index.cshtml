@@ -1,0 +1,191 @@
+﻿@model IEnumerable<PersoneManagement.Web.Models.DTO.AddressDTO>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.1.7/css/fixedHeader.dataTables.min.css">
+    <style>
+        .dataTables_wrapper {
+            width: 900px;
+        }
+
+            .dataTables_wrapper .dataTables_paginate {
+                float: none;
+                text-align: center;
+            }
+
+            .dataTables_wrapper .dataTables_info {
+                float: left;
+                padding-top: 0.755em;
+            }
+
+            .dataTables_wrapper .bottom {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+    </style>
+}
+
+<h2>Address</h2>
+<h3>@ViewBag.Name</h3>
+
+<div class="btn-primary">
+    <a href="@Url.Action("Create", "Address", new { personId = ViewBag.PersonID })"> Create </a>
+</div>
+<table class="table" id="addressData" style="width:100%">
+    <thead>
+        <tr>
+            <th>Actions</th>
+            <th>No.</th>
+            <th>
+                @Html.DisplayNameFor(model => model.AddressesTypeName)
+            </th>
+            <th>
+                Address
+            </th>
+            <th>
+                State Province
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.City)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PostalCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ModifiedDate)
+            </th>
+        </tr>
+    </thead>
+</table>
+
+@section scripts {
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.datatables.net/fixedheader/3.1.7/js/dataTables.fixedHeader.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var table = $('#addressData').DataTable({
+                "ajax": {
+                    "url": "/Address/GetAddress?businessEntityId=" + @ViewBag.PersonID,
+                    "type": "GET",
+
+                    "datatype": "json"
+                },
+                "columns": [
+                    {
+                        "data": null,
+                        "render": function (data, type, row) {
+                            var editLink = '@Url.Action("Edit", "Address", new { id = "PLACEHOLDER", personId = ViewBag.PersonID })'.replace("PLACEHOLDER", row.AddressID);
+                            return '<div class="btn-group">' +
+                                '<a href="' + editLink + '" class="btn btn-primary" data-id="' + row.AddressID + '" id="editButton" style="margin-right: 5px;">' +
+                                '<i class="fas fa-edit"></i></a>' +
+                                '<button id="deleteButton" class="btn btn-danger deleteButton" data-id="' + row.AddressID + '">' +
+                                '<i class="fas fa-trash-alt"></i></button>' +
+                                '</div>'
+
+                        }
+                    },
+                    {
+                        "data": null,
+                        "render": function (data, type, row, meta) {
+                            return meta.row + 1;  // Display the row number (meta.row is zero-indexed)
+                        }
+                    },
+                    { "data": "AddressesTypeName" },
+                    { "data": "AddressessFullName" },
+                    { "data": "StatesProvinceName" },
+                    { "data": "City" },
+                    {"data": "PostalCode"},
+                    {
+                        "data": "ModifiedDate",
+                        "render": function (data, type, row) {
+                            return moment(data).format('DD-MMM-YYYY HH:mm:ss');
+                        }
+                    },
+                ],
+/*                "order": [[0, "desc"]],*/
+                "dom": '<"top"f>rt<"bottom"lpi><"clear">', // search on the top right, show entries, paging, showing on the bottom
+                "pagingType": "full_numbers",
+                "scrollY": "400px",
+                "scrollX": true,
+                "scrollCollapse": true,
+                "fixedHeader": true,
+                //"pagingType": "simple_numbers",
+                "pageLength": 10,
+                "lengthMenu": [10, 25, 50, 100],
+                "scrollY": "400px",
+                "scrollX": true,
+                "scrollCollapse": true,
+                "fixedHeader": true,
+                "language": {
+                    "paginate": {
+                        "previous": "Previous",
+                        "next": "Next",
+                        "first": "<<",
+                        "last": ">>"
+                    }
+                }
+            });
+        });
+
+
+        ////Use this for datatables, becase the buttons are created dynamically
+        $(document).on('click', '#deleteButton', function () {
+            const itemId = $(this).data('id'); // Retrieve the ID of the item to delete
+
+            Swal.fire({
+                title: "Are you sure?",
+                text: "Once deleted, you will not be able to recover this item!",
+                icon: "warning",
+                showCancelButton: true, // Enable the cancel button
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((result) => {
+                    if (result.isConfirmed) {
+                        // Make an AJAX call to delete the item
+                        $.ajax({
+                            url: '/Address/Delete', // URL of your Delete method
+                            type: 'POST', // Use POST for data modification
+                            data: { id: itemId, personID: @ViewBag.PersonID }, // Pass the ID as data
+                            success: function (response) {
+                                if (response.success) {
+                                    Swal.fire("Deleted!", response.message, "success").then(() => {
+                                        $("#addressData").DataTable().ajax.reload(); // Reload the page or update UI
+                                    });
+                                } else {
+                                    Swal.fire("Error!", response.message, "error");
+                                }
+                                Swal.fire("Poof! Your item has been deleted!", {
+                                    icon: "success",
+                                }).then(() => {
+                                    // Optional: Reload the page or update the UI
+                                    location.reload();
+                                });
+                            },
+                            error: function (error) {
+                                Swal.fire("Error!", "Unable to delete the item. Please try again.", "error");
+                            }
+                        });
+                    } else if (result.dismiss == Swal.DismissReason.cancel) {
+                        Swal.fire("Your item is safe!");
+                    }
+                });
+        });
+    </script>
+
+}
