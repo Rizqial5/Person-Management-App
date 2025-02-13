@@ -334,6 +334,18 @@ namespace PersoneManagement.Web.AddressService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAddressService/DeleteAddress", ReplyAction="http://tempuri.org/IAddressService/DeleteAddressResponse")]
         System.Threading.Tasks.Task DeleteAddressAsync(int id, int businessEntityID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAddressService/ImportFromExcel", ReplyAction="http://tempuri.org/IAddressService/ImportFromExcelResponse")]
+        void ImportFromExcel(PersoneManagement.Web.AddressService.AddressDTO addressDTO);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAddressService/ImportFromExcel", ReplyAction="http://tempuri.org/IAddressService/ImportFromExcelResponse")]
+        System.Threading.Tasks.Task ImportFromExcelAsync(PersoneManagement.Web.AddressService.AddressDTO addressDTO);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAddressService/GetAddressTypeIdByName", ReplyAction="http://tempuri.org/IAddressService/GetAddressTypeIdByNameResponse")]
+        int GetAddressTypeIdByName(string addressTypeName);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAddressService/GetAddressTypeIdByName", ReplyAction="http://tempuri.org/IAddressService/GetAddressTypeIdByNameResponse")]
+        System.Threading.Tasks.Task<int> GetAddressTypeIdByNameAsync(string addressTypeName);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -409,6 +421,22 @@ namespace PersoneManagement.Web.AddressService {
         
         public System.Threading.Tasks.Task DeleteAddressAsync(int id, int businessEntityID) {
             return base.Channel.DeleteAddressAsync(id, businessEntityID);
+        }
+        
+        public void ImportFromExcel(PersoneManagement.Web.AddressService.AddressDTO addressDTO) {
+            base.Channel.ImportFromExcel(addressDTO);
+        }
+        
+        public System.Threading.Tasks.Task ImportFromExcelAsync(PersoneManagement.Web.AddressService.AddressDTO addressDTO) {
+            return base.Channel.ImportFromExcelAsync(addressDTO);
+        }
+        
+        public int GetAddressTypeIdByName(string addressTypeName) {
+            return base.Channel.GetAddressTypeIdByName(addressTypeName);
+        }
+        
+        public System.Threading.Tasks.Task<int> GetAddressTypeIdByNameAsync(string addressTypeName) {
+            return base.Channel.GetAddressTypeIdByNameAsync(addressTypeName);
         }
     }
 }

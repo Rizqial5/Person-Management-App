@@ -43,6 +43,32 @@ namespace PersoneManagement.Web.Controllers
             return json;
         }
 
+        public JsonResult GetPersonDetails(int id)
+        {
+            var personData = _personRepository.GetPerson(id);
+
+            var translatedData = new
+            {
+                personData.PersonType,
+                personData.NameStyle,
+                personData.Title,
+                personData.FirstName,
+                personData.MiddleName,
+                personData.LastName,
+                personData.Suffix,
+                personData.EmailPromotion,
+                personData.rowguid,
+                ModifiedDate = personData.ModifiedDate.ToString("dd-MMM-yyyy HH:mm:ss"),
+                FullName = $"{personData.FirstName} {(personData.MiddleName ?? "")} {personData.LastName}"
+            };
+
+            var json = Json(translatedData, JsonRequestBehavior.AllowGet);
+
+            json.MaxJsonLength = int.MaxValue;
+
+            return json;
+        }
+
         // GET: Person/Details/5
         public ActionResult Details(int id)
         {
@@ -68,52 +94,69 @@ namespace PersoneManagement.Web.Controllers
         [HttpPost]
         public ActionResult Create(PersonDTO personDTO)
         {
-                try
-                {
-                    // Insert into BusinessEntity
+            try
+            {
+                // Insert into BusinessEntity
                    
-                    _personRepository.CreatePerson(personDTO);
-
-                    // Commit transaction
-                    
-
-                    TempData["SuccessMessage"] = "Customer created succesfully";
+                _personRepository.CreatePerson(personDTO);
 
 
-                    return RedirectToAction("Index");
-                }
-                catch (Exception ex)
+
+
+                //TempData["SuccessMessage"] = "Customer created succesfully";
+
+
+                return Json(new
                 {
-                    // Rollback transaction
+                    success = true
+
+                });
+            }
+            catch (Exception ex)
+            {
+                // Rollback transaction
                   
-                    ModelState.AddModelError("", "Error creating person: " + ex.Message);
-                    return View();
-                }
+                ModelState.AddModelError("", "Error creating person: " + ex.Message);
+                return Json(new
+                {
+                    success = false,
+                    errorMsg = "Error creating person: " + ex.Message
+                });
+            }
             
         }
         
 
-        // GET: Person/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult GetPersonId(int id)
         {
-
             var person = _personRepository.GetPerson(id);
 
-            if(person == null)
+            if (person == null)
             {
                 return HttpNotFound();
             }
 
-            
-
             var result = Mapping.Mapper.Map<PersonDTO>(person);
 
-            return View(result);
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
+
+        // GET: Person/Edit/5
+        //public ActionResult Edit(int id)
+        //{
+
+
+
+            
+
+        //    var result = Mapping.Mapper.Map<PersonDTO>(person);
+
+        //    return View(result);
+        //}
 
         // POST: Person/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, PersonDTO personDTO)
+        public ActionResult Edit(/*int id, */PersonDTO personDTO)
         {
             try
             {
@@ -134,12 +177,21 @@ namespace PersoneManagement.Web.Controllers
                     TempData["SuccessMessage"] = "Person Updated succesfully";
                 }
 
-                return RedirectToAction("Index");
+                return Json(new
+                {
+                    success = true
+
+                });
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError("", "Unable to update due to " + ex.Message);
-                return View();
+                return Json(new
+                {
+                    success = false,
+                    message = "Unable to update due to " + ex.Message
+
+                });
             }
         }
 

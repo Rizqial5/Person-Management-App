@@ -1,5 +1,4 @@
-﻿
-using Microsoft.Ajax.Utilities;
+﻿using Aspose.Cells;
 using PersoneManagement.Web.Models.DTO;
 using PersoneManagement.Web.Models.Interfaces;
 using PersoneManagement.Web.Models.Repositories;
@@ -8,10 +7,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Aspose.Cells;
-using Aspose.Cells.Drawing;
-using System.Runtime.ConstrainedExecution;
-using PersoneManagement.Web.Models;
 
 
 namespace PersoneManagement.Web.Controllers
@@ -235,73 +230,29 @@ namespace PersoneManagement.Web.Controllers
         [HttpPost]
         public ActionResult StateProvinceImportToExcel(HttpPostedFileBase file)
         {
-            if(file != null && file.ContentLength >0)
+
+            try
             {
-                Workbook workbook = new Workbook(file.InputStream);
-                Worksheet worksheet = workbook.Worksheets[0];
-
-                for (int i = 1; i < worksheet.Cells.MaxDataRow; i++)
+                if (file != null && file.ContentLength > 0)
                 {
-                    int StateProvinceId = ConvertStatePRovince(worksheet,i);
-                    string Name = worksheet.Cells[i, 1].StringValue;
-                    string Code = worksheet.Cells[i, 2].StringValue;
-                    string TerritorryRegion = worksheet.Cells[i, 3].StringValue;
-                    bool Flag = ConvertFlag(worksheet.Cells[i, 4].StringValue);
+                    //ImportStateProvinceFromExcel(file);
 
-                    var parts = TerritorryRegion.Split(new[] { " - " }, StringSplitOptions.None);
-                    string territoryName = parts[0];
-                    string regionname = parts[1];
-
-                    var territoryId = _stateProvinceRepository.GetTerritoriesIdByName(territoryName);
-                    var regionCode = _stateProvinceRepository.GetCountryRegionIdByName(regionname);
-
-                    Guid oldGuid = Guid.Empty;
-                    if (_stateProvinceRepository.GetStateProvinceById(StateProvinceId) != null)
-                    {
-                        oldGuid = _stateProvinceRepository.GetStateProvinceById(StateProvinceId).rowguid;
-                    }
-
-                    
-                    var stateProvince = new StateProvinceDTO
-                    {
-                        StateProvinceID = StateProvinceId,
-                        Name = Name,
-                        StateProvinceCode = Code,
-                        TerritoryID = territoryId,
-                        CountryRegionCode = regionCode,
-                        IsOnlyStateProvinceFlag = Flag,
-                        rowguid = oldGuid
-                    };
-
-
-                    _stateProvinceRepository.ImportFromExcel(stateProvince);
+                    _exportExcelService.ImportStateProvinceExcelToDatabase(file);
                 }
 
                 TempData["SuccessMessage"] = "Data imported Succesfully";
 
                 return RedirectToAction("Index");
-
             }
-            return View();
-        }
-
-        private bool ConvertFlag(string flag)
-        {
-            if (flag == "Yes") return true;
-
-            return false;
-
-        }
-
-        private int ConvertStatePRovince(Worksheet worksheet, int i)
-        {
-            if(worksheet.Cells[i, 0].Value != null)
+            catch (Exception ex)
             {
-                return worksheet.Cells[i, 0].IntValue;
+                ModelState.AddModelError("", "Unable to import due to " + ex.Message);
+                return View();
             }
 
-            return 0;
         }
+
+
 
 
 

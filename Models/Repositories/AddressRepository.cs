@@ -57,5 +57,12 @@ namespace PersoneManagement.Web.Models.Repositories
 
             _addressClient.UpdateAddress(address, businessEntityID, oldGuid);
         }
+
+        public int GetAddressTypeIdByName(string addressTypeName)
+        {
+            var addressType = _addressClient.GetAddressTypeIdByName(addressTypeName);
+
+            return addressType;
+        }
     }
 }

@@ -30,5 +30,7 @@ namespace PersoneManagement.Web.Models.Interfaces
 
         void ImportFromExcel(DTO.StateProvinceDTO stateProvinceDTO);
 
+        int GetStateProvinceIdByName(string stateProvinceName);
+
     }
 }

@@ -1746,12 +1746,6 @@ namespace PersoneManagement.Web.StateProvinceService {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStateProvinceService/GetTerritoriesByRegionCode", ReplyAction="http://tempuri.org/IStateProvinceService/GetTerritoriesByRegionCodeResponse")]
         System.Threading.Tasks.Task<PersoneManagement.Web.StateProvinceService.SalesTerritorryDTO[]> GetTerritoriesByRegionCodeAsync(string regionCode);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStateProvinceService/GetTerritoriesIdByName", ReplyAction="http://tempuri.org/IStateProvinceService/GetTerritoriesIdByNameResponse")]
-        int GetTerritoriesIdByName(string territoriesName);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStateProvinceService/GetTerritoriesIdByName", ReplyAction="http://tempuri.org/IStateProvinceService/GetTerritoriesIdByNameResponse")]
-        System.Threading.Tasks.Task<int> GetTerritoriesIdByNameAsync(string territoriesName);
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStateProvinceService/GetAllTerritories", ReplyAction="http://tempuri.org/IStateProvinceService/GetAllTerritoriesResponse")]
         PersoneManagement.Web.StateProvinceService.SalesTerritorryDTO[] GetAllTerritories();
         
@@ -1769,6 +1763,12 @@ namespace PersoneManagement.Web.StateProvinceService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStateProvinceService/GetCountryRegionIdByName", ReplyAction="http://tempuri.org/IStateProvinceService/GetCountryRegionIdByNameResponse")]
         System.Threading.Tasks.Task<string> GetCountryRegionIdByNameAsync(string regionName);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStateProvinceService/GetTerritoriesIdByName", ReplyAction="http://tempuri.org/IStateProvinceService/GetTerritoriesIdByNameResponse")]
+        int GetTerritoriesIdByName(string territoriesName);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStateProvinceService/GetTerritoriesIdByName", ReplyAction="http://tempuri.org/IStateProvinceService/GetTerritoriesIdByNameResponse")]
+        System.Threading.Tasks.Task<int> GetTerritoriesIdByNameAsync(string territoriesName);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStateProvinceService/ImportFromExcel", ReplyAction="http://tempuri.org/IStateProvinceService/ImportFromExcelResponse")]
         void ImportFromExcel(PersoneManagement.Web.StateProvinceService.StateProvinceDTO stateProvinceDTO);
@@ -1793,6 +1793,12 @@ namespace PersoneManagement.Web.StateProvinceService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStateProvinceService/DeleteStateProvince", ReplyAction="http://tempuri.org/IStateProvinceService/DeleteStateProvinceResponse")]
         System.Threading.Tasks.Task DeleteStateProvinceAsync(int id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStateProvinceService/GetStateProvinceIdByName", ReplyAction="http://tempuri.org/IStateProvinceService/GetStateProvinceIdByNameResponse")]
+        int GetStateProvinceIdByName(string stateProvinceName);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IStateProvinceService/GetStateProvinceIdByName", ReplyAction="http://tempuri.org/IStateProvinceService/GetStateProvinceIdByNameResponse")]
+        System.Threading.Tasks.Task<int> GetStateProvinceIdByNameAsync(string stateProvinceName);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1846,14 +1852,6 @@ namespace PersoneManagement.Web.StateProvinceService {
             return base.Channel.GetTerritoriesByRegionCodeAsync(regionCode);
         }
         
-        public int GetTerritoriesIdByName(string territoriesName) {
-            return base.Channel.GetTerritoriesIdByName(territoriesName);
-        }
-        
-        public System.Threading.Tasks.Task<int> GetTerritoriesIdByNameAsync(string territoriesName) {
-            return base.Channel.GetTerritoriesIdByNameAsync(territoriesName);
-        }
-        
         public PersoneManagement.Web.StateProvinceService.SalesTerritorryDTO[] GetAllTerritories() {
             return base.Channel.GetAllTerritories();
         }
@@ -1876,6 +1874,14 @@ namespace PersoneManagement.Web.StateProvinceService {
         
         public System.Threading.Tasks.Task<string> GetCountryRegionIdByNameAsync(string regionName) {
             return base.Channel.GetCountryRegionIdByNameAsync(regionName);
+        }
+        
+        public int GetTerritoriesIdByName(string territoriesName) {
+            return base.Channel.GetTerritoriesIdByName(territoriesName);
+        }
+        
+        public System.Threading.Tasks.Task<int> GetTerritoriesIdByNameAsync(string territoriesName) {
+            return base.Channel.GetTerritoriesIdByNameAsync(territoriesName);
         }
         
         public void ImportFromExcel(PersoneManagement.Web.StateProvinceService.StateProvinceDTO stateProvinceDTO) {
@@ -1908,6 +1914,14 @@ namespace PersoneManagement.Web.StateProvinceService {
         
         public System.Threading.Tasks.Task DeleteStateProvinceAsync(int id) {
             return base.Channel.DeleteStateProvinceAsync(id);
+        }
+        
+        public int GetStateProvinceIdByName(string stateProvinceName) {
+            return base.Channel.GetStateProvinceIdByName(stateProvinceName);
+        }
+        
+        public System.Threading.Tasks.Task<int> GetStateProvinceIdByNameAsync(string stateProvinceName) {
+            return base.Channel.GetStateProvinceIdByNameAsync(stateProvinceName);
         }
     }
 }

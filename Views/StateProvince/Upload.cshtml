@@ -6,13 +6,5 @@
 
 <h2>Upload Excel File</h2>
 
-@using (Html.BeginForm("StateProvinceImportToExcel", "StateProvince", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-    <div>
-        <input type="file" name="file" accept=".xlsx, .xls" required />
-    </div>
-    <br />
 
-    <button class="btn btn-primary" type="submit">Upload</button>
-}
 

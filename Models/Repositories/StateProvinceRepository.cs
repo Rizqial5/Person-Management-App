@@ -113,5 +113,11 @@ namespace PersoneManagement.Web.Models.Repositories
 
             _stateProvinceClient.ImportFromExcel(result);
         }
+
+        public int GetStateProvinceIdByName(string stateProvinceName)
+        {
+            var data = _stateProvinceClient.GetStateProvinceIdByName(stateProvinceName);
+            return data;
+        }
     }
 }

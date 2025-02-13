@@ -43,6 +43,18 @@
   <wsdl:message name="IAddressService_DeleteAddress_OutputMessage">
     <wsdl:part name="parameters" element="tns:DeleteAddressResponse" />
   </wsdl:message>
+  <wsdl:message name="IAddressService_ImportFromExcel_InputMessage">
+    <wsdl:part name="parameters" element="tns:ImportFromExcel" />
+  </wsdl:message>
+  <wsdl:message name="IAddressService_ImportFromExcel_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ImportFromExcelResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAddressService_GetAddressTypeIdByName_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAddressTypeIdByName" />
+  </wsdl:message>
+  <wsdl:message name="IAddressService_GetAddressTypeIdByName_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAddressTypeIdByNameResponse" />
+  </wsdl:message>
   <wsdl:portType name="IAddressService">
     <wsdl:operation name="GetAddressesByBusinessId">
       <wsdl:input wsaw:Action="http://tempuri.org/IAddressService/GetAddressesByBusinessId" message="tns:IAddressService_GetAddressesByBusinessId_InputMessage" />
@@ -67,6 +79,14 @@
     <wsdl:operation name="DeleteAddress">
       <wsdl:input wsaw:Action="http://tempuri.org/IAddressService/DeleteAddress" message="tns:IAddressService_DeleteAddress_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IAddressService/DeleteAddressResponse" message="tns:IAddressService_DeleteAddress_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ImportFromExcel">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAddressService/ImportFromExcel" message="tns:IAddressService_ImportFromExcel_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAddressService/ImportFromExcelResponse" message="tns:IAddressService_ImportFromExcel_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAddressTypeIdByName">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAddressService/GetAddressTypeIdByName" message="tns:IAddressService_GetAddressTypeIdByName_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAddressService/GetAddressTypeIdByNameResponse" message="tns:IAddressService_GetAddressTypeIdByName_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IAddressService" type="tns:IAddressService">
@@ -118,6 +138,24 @@
     </wsdl:operation>
     <wsdl:operation name="DeleteAddress">
       <soap:operation soapAction="http://tempuri.org/IAddressService/DeleteAddress" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ImportFromExcel">
+      <soap:operation soapAction="http://tempuri.org/IAddressService/ImportFromExcel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAddressTypeIdByName">
+      <soap:operation soapAction="http://tempuri.org/IAddressService/GetAddressTypeIdByName" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

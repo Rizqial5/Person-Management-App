@@ -70,6 +70,20 @@
     </thead>
 </table>
 
+<a href="@Url.Action("ExportExcel","Address", new {businessEntityId = ViewBag.PersonID})" class="btn btn-primary">
+    Export to Excel
+</a>
+
+@using (Html.BeginForm("ImportExcel", "Address",new { businessEntityId = ViewBag.PersonID }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div>
+        <input type="file" name="file" accept=".xlsx, .xls" required />
+    </div>
+    <br />
+
+    <button class="btn btn-primary" type="submit">Upload</button>
+}
+
 @section scripts {
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>

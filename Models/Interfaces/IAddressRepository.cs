@@ -22,5 +22,6 @@ namespace PersoneManagement.Web.Models.Interfaces
         void UpdateAddress(DTO.AddressDTO addressDTO, int businessEntityID, Guid oldGuid);
         
         void DeleteAddress(int id, int businessEntityID);
+        int GetAddressTypeIdByName(string addressTypeName);
     }
 }

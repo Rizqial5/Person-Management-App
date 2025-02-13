@@ -1,14 +1,16 @@
 ﻿
+using Aspose.Cells;
 using Microsoft.Ajax.Utilities;
 using PersoneManagement.Web.Models;
 using PersoneManagement.Web.Models.DTO;
 using PersoneManagement.Web.Models.Interfaces;
 using PersoneManagement.Web.Models.Repositories;
+using PersoneManagement.Web.StateProvinceService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.Mvc;
+using System.Web.Mvc; 
 
 namespace PersoneManagement.Web.Controllers
 {
@@ -17,13 +19,18 @@ namespace PersoneManagement.Web.Controllers
         private IAddressRepository _addressRepository;
         private IPersonRepository _personRepository;
         private IStateProvinceRepository _stateProvinceRepository;
+        private IExcelService _excelService;
 
-        public AddressController() : this(new AddressRepository(), new PersonRepository(), new StateProvinceRepository()) { }
-        public AddressController(IAddressRepository addressRepository, IPersonRepository personRepository, IStateProvinceRepository stateProvinceRepository)
+        public AddressController() : this(new AddressRepository(), new PersonRepository(), new StateProvinceRepository(), new ExcelService() ) { }
+        public AddressController(IAddressRepository addressRepository, 
+            IPersonRepository personRepository, 
+            IStateProvinceRepository stateProvinceRepository,
+            IExcelService excelService)
         {
             _addressRepository = addressRepository;
             _personRepository = personRepository;
             _stateProvinceRepository = stateProvinceRepository;
+            _excelService = excelService;
         }
 
         // GET: Address
@@ -169,6 +176,39 @@ namespace PersoneManagement.Web.Controllers
                     success = false
                 }
                 );
+            }
+        }
+
+        public ActionResult ExportExcel(int businessEntityId)
+        {
+
+
+            var workBook = _excelService.AddressExportToExcel(businessEntityId);
+
+            var stream = new System.IO.MemoryStream();
+
+            workBook.Save(stream, SaveFormat.Xlsx);
+
+            return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "PersonAddress.xlsx");
+        }
+
+        [HttpPost]
+        public ActionResult ImportExcel(HttpPostedFileBase file, int businessEntityId)
+        {
+            try
+            {
+                if (file != null && file.ContentLength > 0)
+                {
+                    _excelService.ImportAddressExcelToDatabase(file, businessEntityId);
+                }
+
+                TempData["SuccessMessage"] = "Data imported Succesfully";
+                return RedirectToAction("Index", new { personID = businessEntityId });
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "Unable to import due to " + ex.Message);
+                return View();
             }
         }
 
